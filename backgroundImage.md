@@ -42,3 +42,25 @@ range = _.range(5) // 0부터 4까지 배열 반환
 reversed = _.reverse([1,2,3,4]) // [4,3,2,1]이 반환됨
 ```
 
+# 3. new date()
+
+#### 1. new Date()를 통해 날짜 및 시간정보 불러오기
+
+```javascript
+const now = new Date()
+```
+
+#### 2. 다양한 메서드 활용하기
+
+```javascript
+// 사용법
+const year = now.getFullYear
+
+// 1. getFullYear
+// 2. getDate
+// 3. getSeconds
+// 4. getHours
+// 5. toLocaleTimeString
+// 등등
+```
+
