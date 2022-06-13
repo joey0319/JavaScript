@@ -45,7 +45,9 @@ let iterator = arr[Symbol.iterator]();
 const arr = [1,2,3];
 let iterator = arr[Symbol.iterator]();
 iterator.next()
-// 위의 코드를 계속 실행하면 {value:1, done:false}, {value:2, done:false}, {value:3, done:false}, {value:4, done:true} 이런식의 리턴을 하게된다.
+/* 위의 코드를 계속 실행하면 {value:1, done:false}, {value:2, done:false}, {value:3, done:false}, {value:4, done:true}
+이런식의 리턴을 하게된다.
+*/
 
 const arr = [1,2,3];
 let iterator = arr[Symbol.iterator]();
@@ -69,7 +71,8 @@ arr[Symbol.iterator] = null;
 for (const a of arr) {
     console.log(a)
 };
-/* 여기서 배열의 순회는 iterator.next()가 반환하는 value를 a라는 변수에 담고 출력하고 그 다음 value를 a에 담아 출력하고 done이 true가 되면 중지한다.
+/* 여기서 배열의 순회는 iterator.next()가 반환하는 value를 a라는 변수에 담고 출력하고
+그 다음 value를 a에 담아 출력하고 done이 true가 되면 중지한다.
 */
 ```
 
