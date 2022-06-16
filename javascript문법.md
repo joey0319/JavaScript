@@ -1,9 +1,9 @@
 # 목차
-- [블록스코프](#1.-블록스코프)
-- [호이스팅](#2.-호이스팅)
-- [원시타입 vs 참조타입](#3.-원시타입-vs-참조타입)
-- [undefined vs null](#4.-undefined-vs-null)
-- [함수 선언식 vs 표현식](#5.-함수-선언식-vs-표현식)
+- [블록스코프](#1-블록스코프)
+- [호이스팅](#2-호이스팅)
+- [원시타입 vs 참조타입](#3-원시타입-vs-참조타입)
+- [undefined vs null](#4-undefined-vs-null)
+- [함수 선언식 vs 표현식](#5-함수-선언식-vs-표현식)
 - [this 공식문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this)
 
 ## 1. 블록스코프
