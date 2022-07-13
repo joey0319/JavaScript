@@ -5,6 +5,9 @@
 - [undefined vs null](#4-undefined-vs-null)
 - [함수 선언식 vs 표현식](#5-함수-선언식-vs-표현식)
 - [this 공식문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/this)
+- [AJAX](#6-AJAX)
+- [Single-Threaded Javascript](#7-single-threaded-javascript)
+- [콜백함수 vs Promise](#8-콜백함수-vs-promise-async-await)
 
 ## 1. 블록스코프
 
@@ -58,13 +61,13 @@ console.log(greeting) // 안녕하세요
 
 
 
-```
+```javascript
 let message = ['안녕하세요']
 
 let greeting = message
 console.log(greeting) // ['안녕하세요']
 
-message = 'hello'
+message[0] = 'hello'
 console.log(greeting) // ['hello']
 ```
 
@@ -107,3 +110,101 @@ const add  = function (num1, num2) {
 }
 ```
 
+
+
+
+
+## 6. AJAX
+
+1. AJAX란?
+   - Asynchronous JavaScript And XML (비동기식 javasciprt와 xml)
+   - 서버와 통신하기 위해 XMLHttpRequest 객체를 활용
+   - AJAX의 X가 XML을 의미하긴 하지만 모든 종류의 데이터를 가져올 수 있고 요즘은 JSON을 더 많이 사용한다.
+2. 특징
+   - 페이지 전체를 새로고침 안해도 수행되는 **비동기성**
+   - 페이지 새로고침 없이 서버에 요청, 데이터를 받아 작업을 수행
+
+3. 비동기성 예시
+   - 메일을 전송하고 처리 되기 전에 다른 페이지로 넘어가도 메일은 전송된다
+   - 지도 앱에서 스크롤을 하는 모든 행위가 요청이지만 페이지는 갱신되지 않는다.
+
+4. XMLHttpRequest 객체란?
+   - [공식문서](https://developer.mozilla.org/ko/docs/Web/API/XMLHttpRequest)
+   - 서버와 상호작용하기 위해 사용됨
+   - XHR을 사용하면 페이지 새로고침 없이 URL에서 데이터 가져올 수 있음
+
+
+
+## 7. Single-Threaded Javascript
+
+1. Treads
+
+   - 프로그램이 작업을 완료하기 위해 사용할 수 있는 단일 프로세스
+   - 각 thread는 한번에 하나의 작업만 수행가능
+   - 하지만 컴퓨터 CPU는 여러개의 코어를 가지고 있어 한번에 여러가지 일 처리 가능
+
+2. single-threaded javascript
+
+   - 컴퓨터가 여러개의 CPU를 가지고 있어도 javascript는 main thread에서만 작업 수행
+   - **이벤트를 처리하는 Call Stack이 하나인 언어이다.**
+
+3. single-threaded javascript의 이벤트 처리 로직
+
+   - Call Stack : 요청이 들어올 때마다 해당요청을 순차적으로 처리하는 LIFO 자료구조(최근거 먼저)
+
+   - Web API : JavaScript 엔진이 브라우저에서 제공하는 API
+
+     ​				 즉시 처리하지 못한 이벤트들을 Web API로 보내서 처리하게 함 ex) setTimeout()
+
+   - Task Queue : Web API에서 처리된 순서대로 callback함수가 대기하는 FIFO 자료구조
+
+   - Event Loop : Call Stack이 비어있는지 확인하고 비어 있으면 Task Queue에 대기중인 callback 함수가 있는 확인 Task Queue에 대기중인 callback 함수가 있다면 가장 앞에 있는(가장 먼저 들어온) callback 함수를 Call Stack으로 푸쉬한다.
+
+4. 순차적인 비동기 처리
+   - 문제점 : Web API로 들어온 순서는 중요하지 않고 누가 먼저 처리되느냐고 중요(실행 순서 불명확)
+   - 해결방법
+     - Async callbacks : 백그라운드에서 실행을 시작할 함수를 호출할 때 인자로 지정된 함수
+     - promise-style : XMLHttpRequest 객체를 사용한 현대적인 버전
+
+
+
+## 8. 콜백함수 vs Promise vs Async Await
+
+1. 콜백함수
+
+   - 비동기 로직을 수행할 때 필수적이다.
+   - 콜백함수를 다른 함수의 매개변수로 전달하여 해당 함수 내에서 특정 시점에 호출한다.
+
+   - 예시
+
+     ```javascript
+     const btn = document.querySelector('button')
+     
+     btn.addEventListener('click', function () {
+         alert('Click!!')
+     })
+     ```
+
+     위의 예시에서 addEventListner 함수 안에서 alert를 하는 익명함수가 콜백함수이다.
+
+   - 함수 내부에 콜백함수가 많아질수록 callback Hell
+
+2. Promise
+
+   - [공식문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+   - 비동기 작업이 맞이할 미래의 최종 완료 or 실패와 그 결과값을 나타내는 객체
+   - 미래의 어떤 시점에 결과를 제공하겠다는 약속을 반환한다.
+   - promise의 상태
+     - pending : 대기
+     - fullfilled : 성공
+     - rejected : 실패
+   - 
+   - .then(callback)
+     - 이전 작업이 성공했을 때 수행할 작업을 나타내는 callback 함수
+     - 각 callback 함수는 이전 작업의 성공 결과를 인자로 받는다.
+     - .then을 여러개 사용하여 비동기 작업을 차례대로 수행 할 수 있다.
+     - **반환값이 반드시 있어야 callback 함수가 이전 작업의 결과를 받을 수 있다.**
+   - .catch(callback)
+     - .then이 하나라도 실패하면 동작한다.
+     - 이전 작업의 실패로 인해 생성된 error 객체는 catch 블록안에서 사용 가능
